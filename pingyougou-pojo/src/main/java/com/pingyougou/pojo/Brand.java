@@ -2,12 +2,19 @@ package com.pingyougou.pojo;
 
 import java.io.Serializable;
 
+/**
+ * 实体类
+ */
+
 public class Brand implements Serializable {
    private long id;
    private String name;
    private String firstChar;
 
-    public long getId() {
+
+
+
+   public long getId() {
         return id;
     }
 
