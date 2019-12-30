@@ -1,0 +1,50 @@
+package com.pingyougou.shop.controller;
+
+import org.apache.commons.io.FilenameUtils;
+import org.csource.fastdfs.ClientGlobal;
+import org.csource.fastdfs.StorageClient;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.util.HashMap;
+import java.util.Map;
+
+// 文件上控制器
+@RestController
+public class UploadController {
+    // 注入文件服务器访问地址
+    @Value("${fileSeverUrl}")
+    private String fileSeverUrl ;
+    @PostMapping("/upload")
+    public Map<String,Object> upload(@RequestParam("file")MultipartFile multipartFile){
+        Map<String,Object> data= new HashMap<>();
+        data.put("status",500);
+        // 加载配置文件，产生文件绝对路径
+        try {
+            String conf_filename = this.getClass().getResource("/fastdfs_client.conf").getPath();
+
+            // c初始化客户端全局对象
+            ClientGlobal.init(conf_filename);
+            // 创建存储客户端对象
+            StorageClient storageClient = new StorageClient();
+            // 获取源文件名
+            String originalFilename = multipartFile.getOriginalFilename();
+            //上传文件到fasdtfs服务器
+            String[] arr = storageClient.upload_file(multipartFile.getBytes(), FilenameUtils.getExtension(originalFilename), null);
+            //拼接返回的URL和IP地址，拼接完整的url
+            StringBuilder url = new StringBuilder(fileSeverUrl);
+            for (String str : arr) {
+                url.append("/"+str);
+            }
+            data.put("status",200);
+            data.put("url",url.toString());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+      return data;
+    }
+
+}

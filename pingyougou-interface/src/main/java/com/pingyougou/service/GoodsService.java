@@ -10,7 +10,7 @@ import java.io.Serializable;
  */
 public interface GoodsService {
 
-	/** 添加方法 */
+	/** 添加商家方法 */
 	void save(Goods goods);
 
 	/** 修改方法 */

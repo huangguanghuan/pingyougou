@@ -1,6 +1,8 @@
 package com.pingyougou.service;
 
+import com.pingyougou.common.pojo.PageResult;
 import com.pingyougou.pojo.Seller;
+
 import java.util.List;
 import java.io.Serializable;
 /**
@@ -10,7 +12,7 @@ import java.io.Serializable;
  */
 public interface SellerService {
 
-	/** 添加方法 */
+	/** 添加商家 */
 	void save(Seller seller);
 
 	/** 修改方法 */
@@ -29,6 +31,7 @@ public interface SellerService {
 	List<Seller> findAll();
 
 	/** 多条件分页查询 */
-	List<Seller> findByPage(Seller seller, int page, int rows);
-
+	PageResult findByPage(Seller seller, int page, int rows);
+	// 审核商家状态
+    void updateStatus(String sellerId, String status);
 }

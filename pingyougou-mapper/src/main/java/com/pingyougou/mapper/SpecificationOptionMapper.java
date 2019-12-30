@@ -1,5 +1,6 @@
 package com.pingyougou.mapper;
 
+import com.pingyougou.pojo.Specification;
 import tk.mybatis.mapper.common.Mapper;
 
 import com.pingyougou.pojo.SpecificationOption;
@@ -11,6 +12,6 @@ import com.pingyougou.pojo.SpecificationOption;
  */
 public interface SpecificationOptionMapper extends Mapper<SpecificationOption>{
 
-
-
+   //批量插入选项
+    void save(Specification specification);
 }

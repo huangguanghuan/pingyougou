@@ -4,5 +4,21 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.pingyougou.mapper.BrandMapper">
-
+	<!-- 多条件查询-->
+	<select id="findAll" resultType="Brand">
+		select * from tb_brand
+		<where>
+			<!-- 品牌名称
+				${name}: 不产生问号
+			-->
+			<if test="name != null and name !=''">
+				name like CONCAT('%',#{name},'%')
+			</if>
+			<!-- 品牌首字母 -->
+			<if test="firstChar != null and firstChar !=''">
+				and first_char = #{first_char}
+			</if>
+		</where>
+		order by id asc
+	</select>
 </mapper>

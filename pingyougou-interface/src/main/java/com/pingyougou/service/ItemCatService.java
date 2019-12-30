@@ -1,6 +1,9 @@
 package com.pingyougou.service;
 
+import com.pingyougou.mapper.ItemCatMapper;
 import com.pingyougou.pojo.ItemCat;
+import org.springframework.beans.factory.annotation.Autowired;
+
 import java.util.List;
 import java.io.Serializable;
 /**
@@ -9,6 +12,7 @@ import java.io.Serializable;
  * @version 1.0
  */
 public interface ItemCatService {
+
 
 	/** 添加方法 */
 	void save(ItemCat itemCat);
@@ -31,4 +35,13 @@ public interface ItemCatService {
 	/** 多条件分页查询 */
 	List<ItemCat> findByPage(ItemCat itemCat, int page, int rows);
 
+	//根据父级Id查询商品
+	List<ItemCat> findItemCatByParentId(Long parentId);
+
+	/** 添加商品类目 */
+	void saveItemCat(ItemCat itemCat);
+     //	 删除商品类目
+    void deleteItemCat(Long[] ids);
+	/** 查询模版列表 */
+	void updateItemCat(ItemCat itemCat);
 }

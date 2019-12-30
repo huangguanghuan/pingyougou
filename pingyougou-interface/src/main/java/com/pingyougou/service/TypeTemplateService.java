@@ -1,8 +1,11 @@
 package com.pingyougou.service;
 
+import com.pingyougou.common.pojo.PageResult;
 import com.pingyougou.pojo.TypeTemplate;
 import java.util.List;
 import java.io.Serializable;
+import java.util.Map;
+
 /**
  * TypeTemplateService 服务接口
  * @date 2019-10-15 11:19:00
@@ -22,13 +25,16 @@ public interface TypeTemplateService {
 	/** 批量删除 */
 	void deleteAll(Serializable[] ids);
 
-	/** 根据主键id查询 */
+	/** 根据主键id查询类型模版 */
 	TypeTemplate findOne(Serializable id);
 
 	/** 查询全部 */
 	List<TypeTemplate> findAll();
 
 	/** 多条件分页查询 */
-	List<TypeTemplate> findByPage(TypeTemplate typeTemplate, int page, int rows);
-
+	PageResult findByPage(TypeTemplate typeTemplate, int page, int rows);
+	/** 查询类型模版 */
+    List<Map<String,Object>> findTypeTemplateList();
+	/** 根据模版id查询所有的规格与规格选项 */
+    List<Map> findSpecByTemplateId(Long id);
 }
